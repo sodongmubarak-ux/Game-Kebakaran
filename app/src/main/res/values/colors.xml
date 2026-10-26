@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_forest">#166534</color>
+    <color name="primary_dark">#0f172a</color>
+    <color name="fire_orange">#ea580c</color>
+    <color name="water_blue">#0284c7</color>
+    <color name="peat_soil">#3e271a</color>
+</resources>

@@ -1,0 +1,65 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build Debug APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fireland-borneo-debug-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 30
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/heads/main')
+        with:
+          tag_name: v1.0.0-prototype
+          name: "FIRELAND: Borneo Forest Rescue v1.0.0"
+          body: |
+            🎮 **FIRELAND: BORNEO FOREST RESCUE — APK PROTOTYPE v1.0.0**
+
+            Aplikasi game Android 2D simulasi pemadam kebakaran hutan Kalimantan.
+
+            ### 📥 Unduh APK
+            Silakan unduh file `app-debug.apk` di bawah aset rilis ini dan instal di HP Android Anda.
+
+            ### ✨ Fitur Prototipe:
+            - Sudut pandang 2D Top-Down dengan Android Canvas
+            - Antarmuka Menu Utama Jetpack Compose
+            - Markas Relawan Gambut (Rumah Panggung, Kebun, Tangki Air, Gudang)
+            - Misi 01: Kebakaran Tepi Hutan
+            - Virtual Touch Joystick
+            - Mekanisme Pemadaman Api & Pengisian Ulang Air
+            - Penyimpanan Progres Lokal (SharedPreferences)
+            - Bilingual (Bahasa Indonesia & English)
+          files: app/build/outputs/apk/debug/app-debug.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">FIRELAND</string>
+    <string name="game_title">FIRELAND: BORNEO FOREST RESCUE</string>
+    <string name="start_play">MULAI BERMAIN</string>
+    <string name="continue_play">LANJUTKAN</string>
+    <string name="settings">PENGATURAN</string>
+    <string name="about_game">TENTANG GAME</string>
+    <string name="extinguish">PADAMKAN</string>
+    <string name="refill_water">ISI AIR</string>
+    <string name="mission_map">PETA MISI</string>
+    <string name="back_to_base">KEMBALI KE MARKAS</string>
+</resources>
